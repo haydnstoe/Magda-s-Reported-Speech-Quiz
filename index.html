@@ -175,39 +175,63 @@
 
     function normalize(s){
       if (!s) return '';
-      return s.trim().replace(/\s+/g,' ').replace(/[\u2018\u2019\u201C\u201D]/g, '"').replace(/\s+,\s+/g, ', ').replace(/\s+\.\s*$/,'').replace(/\s+\.\s+/g,'. ').replace(/\s+\"\s+/g,'"').trim();
+      // replace smart quotes with simple quotes, collapse whitespace, remove leading/trailing punctuation
+      return s.trim()
+        .replace(/[\u2018\u2019\u201C\u201D]/g, '"')
+        .replace(/[\u2013\u2014]/g, '-')
+        .replace(/\s+/g,' ')
+        .replace(/^\s*["']?/,'')
+        .replace(/["']?\s*$/,'')
+        .trim();
+    }
+
+    function stripOptionalThatAndQuotes(str) {
+      // Remove all occurrences of the word 'that' as a standalone word (case-insensitive)
+      // and remove surrounding quotation marks for fair comparison.
+      return str.replace(/["']/g,'').replace(/\bthat\b/gi,'').replace(/\s+/g,' ').trim();
+    }
+
+    function flexibleMatch(userRaw, expectedRaw) {
+      if (!userRaw) return false;
+      const u = normalize(userRaw);
+      const e = normalize(expectedRaw);
+
+      // Primary exact match (case-insensitive)
+      if (u.toLowerCase() === e.toLowerCase()) return true;
+
+      // Allow optional 'that': remove all 'that' instances and compare
+      const uNoThat = stripOptionalThatAndQuotes(u).toLowerCase();
+      const eNoThat = stripOptionalThatAndQuotes(e).toLowerCase();
+      if (uNoThat === eNoThat) return true;
+
+      // Allow minor punctuation differences and optional reporting pronoun variants:
+      // remove commas, periods and compare
+      const stripPunct = s => s.replace(/[.,;:!?]/g,'').replace(/\s+/g,' ').trim().toLowerCase();
+      if (stripPunct(uNoThat) === stripPunct(eNoThat)) return true;
+
+      return false;
     }
 
     function checkAnswers(){
       const fb = document.getElementById('feedback');
       fb.innerHTML = '';
       let correctCount = 0;
-      Object.keys(ANSWERS).forEach((qid, idx) => {
+      const ids = Object.keys(ANSWERS);
+      ids.forEach((qid, idx) => {
         const expected = ANSWERS[qid].ans;
         const explanation = ANSWERS[qid].expl;
         const input = document.querySelector('input[name="'+qid+'"]');
-        const user = normalize(input ? input.value : '');
-        const expNorm = normalize(expected);
+        const userRaw = input ? input.value : '';
         const block = document.createElement('div');
         block.className = 'result';
-        // For flexible matching allow optional 'that', minor punctuation differences, and common pronoun substitutions.
-        const userLower = user.toLowerCase();
-        const expLower = expNorm.toLowerCase();
-        const flexibleMatch = (u, e) => {
-          if (!u) return false;
-          // remove optional 'that' after reporting verb
-          const u2 = u.replace(/\b(that)\b/gi,'').replace(/["']/g,'').replace(/\s+/g,' ').trim();
-          const e2 = e.replace(/\b(that)\b/gi,'').replace(/["']/g,'').replace(/\s+/g,' ').trim();
-          return u2.toLowerCase() === e2.toLowerCase();
-        };
 
-        if (flexibleMatch(user, expNorm)) {
+        if (flexibleMatch(userRaw, expected)) {
           block.classList.add('correct');
-          block.innerHTML = '<strong>Question '+(idx+1)+' — Correct</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(input.value)+'</em></div>';
+          block.innerHTML = '<strong>Question '+(idx+1)+' — Correct</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(userRaw || '')+'</em></div>';
           correctCount++;
         } else {
           block.classList.add('incorrect');
-          block.innerHTML = '<strong>Question '+(idx+1)+' — Incorrect</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(input.value || '(no answer)')+'</em></div>';
+          block.innerHTML = '<strong>Question '+(idx+1)+' — Incorrect</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(userRaw || '(no answer)')+'</em></div>';
           const correctDiv = document.createElement('div');
           correctDiv.className = 'explain-answer';
           correctDiv.innerHTML = '<strong>Correct answer:</strong> <em>'+escapeHtml(expected)+'</em>';
@@ -222,7 +246,7 @@
       const summary = document.createElement('div');
       summary.className = 'small';
       summary.style.marginTop = '10px';
-      summary.textContent = 'Score: '+correctCount+' / '+Object.keys(ANSWERS).length;
+      summary.textContent = 'Score: '+correctCount+' / '+ids.length;
       fb.prepend(summary);
       fb.scrollIntoView({behavior:'smooth'});
     }
