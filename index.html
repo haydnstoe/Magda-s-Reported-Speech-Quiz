@@ -38,7 +38,7 @@
 
   <section class="explain">
     <strong>Explanation</strong>
-    <p>Reported speech (indirect speech) is used to tell someone what another person said without quoting them directly. Key changes when converting direct to reported speech: backshift of tense (present → past, past → past perfect), changes to modal verbs (can → could, will → would), changes to time and place expressions (now → then, today → that day, here → there), and pronoun adjustments for the new subject.</p>
+    <p>Reported speech (indirect speech) is used to tell someone what another person said without quoting them directly. Key changes when converting direct to reported speech: backshift of tense (present → past, past → past perfect), changes to modal verbs (can → could, will → would), changes to time and place expressions (now → then, today → that day, here → there), and pronoun adjustments for the new subject. The word "that" is optional in many reported constructions — both forms are accepted.</p>
     <div class="examples">
       <div class="example"><strong>Direct:</strong> "I will finish the report tomorrow," she said. <strong>Reported:</strong> She said (that) she would finish the report the next day.</div>
       <div class="example"><strong>Direct:</strong> "We have already sent the invoice," they told me. <strong>Reported:</strong> They told me (that) they had already sent the invoice.</div>
@@ -175,39 +175,42 @@
 
     function normalize(s){
       if (!s) return '';
-      // replace smart quotes with simple quotes, collapse whitespace, remove leading/trailing punctuation
+      // replace smart quotes with simple quotes, collapse whitespace
       return s.trim()
         .replace(/[\u2018\u2019\u201C\u201D]/g, '"')
         .replace(/[\u2013\u2014]/g, '-')
         .replace(/\s+/g,' ')
-        .replace(/^\s*["']?/,'')
-        .replace(/["']?\s*$/,'')
         .trim();
     }
 
-    function stripOptionalThatAndQuotes(str) {
-      // Remove all occurrences of the word 'that' as a standalone word (case-insensitive)
-      // and remove surrounding quotation marks for fair comparison.
-      return str.replace(/["']/g,'').replace(/\bthat\b/gi,'').replace(/\s+/g,' ').trim();
+    function removeThatAndQuotes(str) {
+      // Remove all standalone occurrences of 'that' (case-insensitive), remove outer quotes and normalize whitespace
+      return str
+        .replace(/^\s*["']?\s*/,'')   // leading quote
+        .replace(/\s*["']?\s*$/,'')   // trailing quote
+        .replace(/\bthat\b/gi,'')     // remove 'that'
+        .replace(/["']/g,'')          // remove any remaining quotes
+        .replace(/[.,;:!?]/g,'')      // remove punctuation for lenient compare
+        .replace(/\s+/g,' ')
+        .trim();
     }
 
     function flexibleMatch(userRaw, expectedRaw) {
       if (!userRaw) return false;
-      const u = normalize(userRaw);
-      const e = normalize(expectedRaw);
+      const user = normalize(userRaw);
+      const expected = normalize(expectedRaw);
 
-      // Primary exact match (case-insensitive)
-      if (u.toLowerCase() === e.toLowerCase()) return true;
+      // Exact case-insensitive match is acceptable
+      if (user.toLowerCase() === expected.toLowerCase()) return true;
 
-      // Allow optional 'that': remove all 'that' instances and compare
-      const uNoThat = stripOptionalThatAndQuotes(u).toLowerCase();
-      const eNoThat = stripOptionalThatAndQuotes(e).toLowerCase();
-      if (uNoThat === eNoThat) return true;
+      // Compare after removing all 'that' occurrences and stripping quotes and punctuation
+      const uClean = removeThatAndQuotes(user).toLowerCase();
+      const eClean = removeThatAndQuotes(expected).toLowerCase();
+      if (uClean === eClean) return true;
 
-      // Allow minor punctuation differences and optional reporting pronoun variants:
-      // remove commas, periods and compare
-      const stripPunct = s => s.replace(/[.,;:!?]/g,'').replace(/\s+/g,' ').trim().toLowerCase();
-      if (stripPunct(uNoThat) === stripPunct(eNoThat)) return true;
+      // Additional tolerant check: allow minor spacing differences and minor variations in reporting pronouns
+      const tolerant = (s) => s.replace(/\b(I|we|you|he|she|they)\b/gi,'').replace(/\s+/g,' ').trim();
+      if (tolerant(uClean) === tolerant(eClean)) return true;
 
       return false;
     }
