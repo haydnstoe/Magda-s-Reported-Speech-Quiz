@@ -1,22 +1,247 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Interactive Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Magda's Reported Speech Quiz</title>
+  <style>
+    :root{font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.45;color:#111}
+    body{max-width:980px;margin:28px auto;padding:22px;background:#fff;border:1px solid #e6e6e6;border-radius:10px}
+    header{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+    h1{font-size:1.25rem;margin:0}
+    .level{font-size:0.95rem;color:#444}
+    .explain{background:#fbfbfb;border:1px solid #eee;padding:12px;border-radius:8px;margin:12px 0;color:#222}
+    .examples{margin-top:8px}
+    .example{margin:8px 0;padding:10px;border-left:4px solid #0b6efd;background:#fff}
+    form{margin-top:12px}
+    .question{padding:12px;border-radius:6px;background:#fbfbfb;border:1px solid #efefef;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+    .qmeta{font-size:0.95rem;color:#111}
+    input[type="text"]{padding:10px;border:1px solid #cfcfcf;border-radius:6px;font-size:0.95rem;width:100%}
+    .controls{display:flex;gap:10px;align-items:center;margin:16px 0;flex-wrap:wrap}
+    button{background:#0b6efd;color:#fff;padding:10px 14px;border:0;border-radius:8px;cursor:pointer}
+    button.secondary{background:#f3f4f6;color:#111;border:1px solid #d1d5db}
+    .result{padding:12px;margin-top:10px;border-radius:6px}
+    .correct{background:#e6ffec;border:1px solid #b7f0c2;color:#0a7a2e}
+    .incorrect{background:#fff2f2;border:1px solid #f0b5b5;color:#9b2616}
+    .explain-answer{font-size:0.95rem;color:#222;margin-top:6px}
+    footer{margin-top:18px;font-size:0.86rem;color:#555}
+    .small{font-size:0.86rem;color:#444}
+    label.note{font-size:0.88rem;color:#555}
+    code{background:#f6f8fa;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}
+  </style>
 </head>
 <body>
-  <h1>HTML Basics Quiz</h1>
-  <form id="quiz-form">
-    <div>
-      <p>1. What does HTML stand for?</p>
-      <input type="radio" name="q1" value="a"> Home Tool Markup Language<br>
-      <input type="radio" name="q1" value="b"> HyperText Markup Language<br>
-      <input type="radio" name="q1" value="c"> Hyperlink Text Management Language<br>
-    </div>
-    <button type="button" onclick="submitQuiz()">Submit</button>
-  </form>
-  <div id="result"></div>
+  <header>
+    <h1>Magda's Reported Speech Quiz</h1>
+    <div class="level">Level: Upper intermediate (B2)</div>
+  </header>
 
-  <script src="script.js"></script>
+  <section class="explain">
+    <strong>Explanation</strong>
+    <p>Reported speech (indirect speech) is used to tell someone what another person said without quoting them directly. Key changes when converting direct to reported speech: backshift of tense (present → past, past → past perfect), changes to modal verbs (can → could, will → would), changes to time and place expressions (now → then, today → that day, here → there), and pronoun adjustments for the new subject.</p>
+    <div class="examples">
+      <div class="example"><strong>Direct:</strong> "I will finish the report tomorrow," she said. <strong>Reported:</strong> She said (that) she would finish the report the next day.</div>
+      <div class="example"><strong>Direct:</strong> "We have already sent the invoice," they told me. <strong>Reported:</strong> They told me (that) they had already sent the invoice.</div>
+    </div>
+  </section>
+
+  <form id="quiz" autocomplete="off" onsubmit="return false;">
+    <!-- 10 direct -> reported -->
+    <div class="question" data-id="q1">
+      <div class="qmeta"><strong>1</strong> — Direct: "I'm meeting the architect at 3pm," Mark said. Change to reported speech.</div>
+      <input type="text" name="q1" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q2">
+      <div class="qmeta"><strong>2</strong> — Direct: "I can't attend the conference next week," Julia told me. Change to reported speech.</div>
+      <input type="text" name="q2" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q3">
+      <div class="qmeta"><strong>3</strong> — Direct: "We've never seen results like this," the scientist said. Change to reported speech.</div>
+      <input type="text" name="q3" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q4">
+      <div class="qmeta"><strong>4</strong> — Direct: "Please call me when you arrive," she asked. Change to reported speech.</div>
+      <input type="text" name="q4" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q5">
+      <div class="qmeta"><strong>5</strong> — Direct: "I bought these tickets yesterday," he said. Change to reported speech.</div>
+      <input type="text" name="q5" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q6">
+      <div class="qmeta"><strong>6</strong> — Direct: "Will you join the committee?" the director asked them. Change to reported speech.</div>
+      <input type="text" name="q6" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q7">
+      <div class="qmeta"><strong>7</strong> — Direct: "Don't forget to lock the door," the cleaner reminded us. Change to reported speech.</div>
+      <input type="text" name="q7" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q8">
+      <div class="qmeta"><strong>8</strong> — Direct: "I may be late because of traffic," he warned. Change to reported speech.</div>
+      <input type="text" name="q8" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q9">
+      <div class="qmeta"><strong>9</strong> — Direct: "We are going to submit the proposal today," they said. Change to reported speech.</div>
+      <input type="text" name="q9" placeholder="Write the reported version here" />
+    </div>
+
+    <div class="question" data-id="q10">
+      <div class="qmeta"><strong>10</strong> — Direct: "I've seen him in the library," Anna said. Change to reported speech.</div>
+      <input type="text" name="q10" placeholder="Write the reported version here" />
+    </div>
+
+    <!-- 6 reported -> direct -->
+    <div class="question" data-id="q11">
+      <div class="qmeta"><strong>11</strong> — Reported: He explained that he had completed the audit the previous month. Change to direct speech.</div>
+      <input type="text" name="q11" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="question" data-id="q12">
+      <div class="qmeta"><strong>12</strong> — Reported: She warned that the software might not be compatible with older systems. Change to direct speech.</div>
+      <input type="text" name="q12" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="question" data-id="q13">
+      <div class="qmeta"><strong>13</strong> — Reported: They promised that they would deliver the samples by Friday. Change to direct speech.</div>
+      <input type="text" name="q13" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="question" data-id="q14">
+      <div class="qmeta"><strong>14</strong> — Reported: The manager asked whether anyone had seen the missing file. Change to direct speech.</div>
+      <input type="text" name="q14" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="question" data-id="q15">
+      <div class="qmeta"><strong>15</strong> — Reported: She admitted that she had forgotten to attach the document. Change to direct speech.</div>
+      <input type="text" name="q15" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="question" data-id="q16">
+      <div class="qmeta"><strong>16</strong> — Reported: He suggested that they take a short break before continuing. Change to direct speech.</div>
+      <input type="text" name="q16" placeholder="Write the direct quotation here" />
+    </div>
+
+    <div class="controls">
+      <button id="check">Check answers</button>
+      <button id="clear" class="secondary">Clear saved answers</button>
+      <label class="note">Your answers are saved locally as you enter them.</label>
+    </div>
+
+    <div id="feedback"></div>
+
+    <footer>
+      <div class="small">No other text is included. Only the explanation, examples and the questions above are provided.</div>
+    </footer>
+  </form>
+
+  <script>
+    // Correct responses and brief explanations
+    const ANSWERS = {
+      q1: {ans:"Mark said (that) he was meeting the architect at 3pm.", expl:"Present continuous → past continuous; 'I'm meeting' becomes 'he was meeting'. 'that' is optional."},
+      q2: {ans:"Julia told me (that) she couldn't attend the conference the following week.", expl:"Modal 'can't' → past 'couldn't'; 'next week' → 'the following week'."},
+      q3: {ans:"The scientist said (that) they had never seen results like that.", expl:"Present perfect → past perfect; 'we' becomes 'they' if reporting by a third person."},
+      q4: {ans:"She asked (that) I/you/he/she/they call her when I/you/he/she/they arrived.", expl:"Imperatives reported with 'asked' + object + infinitive or 'asked me to call'; time shifts: 'when you arrive' → 'when I/you arrived'."},
+      q5: {ans:"He said (that) he had bought those tickets the day before.", expl:"Past simple usually stays past simple in reported speech if reporting verb is past; 'yesterday' → 'the day before'."},
+      q6: {ans:"The director asked them if/whether they would join the committee.", expl:"Yes/no question: 'Will you' → 'if/whether they would' and future 'will' → 'would'."},
+      q7: {ans:"The cleaner reminded us to lock the door.", expl:"Imperative with 'reminded' + object + infinitive; 'Don't forget to lock' → 'reminded us to lock'."},
+      q8: {ans:"He warned (that) he might be late because of traffic.", expl:"Modal 'may/might' — use 'might' in reported speech to backshift 'may'."},
+      q9: {ans:"They said (that) they were going to submit the proposal that day.", expl:"Present continuous/planned future 'are going to' → 'were going to'; 'today' → 'that day'."},
+      q10: {ans:"Anna said (that) she had seen him in the library.", expl:"Present perfect → past perfect when reporting; 'I've seen' → 'she had seen'."},
+      q11: {ans:"\"I completed the audit last month,\" he said.", expl:"Past perfect in reported speech corresponds to past simple in direct speech when reporter uses past: 'had completed' → 'completed'; 'the previous month' → 'last month'."},
+      q12: {ans:"\"The software may not be compatible with older systems,\" she warned.", expl:"Modal 'might' in reported becomes 'may' or 'might' in direct depending on original; here 'may' is natural."},
+      q13: {ans:"\"We will deliver the samples by Friday,\" they promised.", expl:"Reported 'would deliver' corresponds to direct 'will deliver'."},
+      q14: {ans:"\"Has anyone seen the missing file?\" the manager asked.", expl:"Yes/no question in reported form uses 'whether' — direct: question form with auxiliary 'Has anyone seen...?'."},
+      q15: {ans:"\"I forgot to attach the document,\" she admitted.", expl:"Past perfect 'had forgotten' in reported speech often corresponds to past simple in direct speech depending on timing."},
+      q16: {ans:"\"Let's take a short break before continuing,\" he suggested.", expl:"'Suggested that they take' → direct suggestion 'Let's take...' or 'Why don't we take...'; 'Let's...' is a common direct form."}
+    };
+
+    // Save and restore inputs
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+      const id = input.name;
+      const saved = localStorage.getItem('reported-'+id);
+      if (saved) input.value = saved;
+      input.addEventListener('input', e => {
+        localStorage.setItem('reported-'+id, e.target.value);
+        document.getElementById('status').textContent = 'Your answers are saved locally as you enter them.';
+      });
+    });
+
+    function normalize(s){
+      if (!s) return '';
+      return s.trim().replace(/\s+/g,' ').replace(/[\u2018\u2019\u201C\u201D]/g, '"').replace(/\s+,\s+/g, ', ').replace(/\s+\.\s*$/,'').replace(/\s+\.\s+/g,'. ').replace(/\s+\"\s+/g,'"').trim();
+    }
+
+    function checkAnswers(){
+      const fb = document.getElementById('feedback');
+      fb.innerHTML = '';
+      let correctCount = 0;
+      Object.keys(ANSWERS).forEach((qid, idx) => {
+        const expected = ANSWERS[qid].ans;
+        const explanation = ANSWERS[qid].expl;
+        const input = document.querySelector('input[name="'+qid+'"]');
+        const user = normalize(input ? input.value : '');
+        const expNorm = normalize(expected);
+        const block = document.createElement('div');
+        block.className = 'result';
+        // For flexible matching allow optional 'that', minor punctuation differences, and common pronoun substitutions.
+        const userLower = user.toLowerCase();
+        const expLower = expNorm.toLowerCase();
+        const flexibleMatch = (u, e) => {
+          if (!u) return false;
+          // remove optional 'that' after reporting verb
+          const u2 = u.replace(/\b(that)\b/gi,'').replace(/["']/g,'').replace(/\s+/g,' ').trim();
+          const e2 = e.replace(/\b(that)\b/gi,'').replace(/["']/g,'').replace(/\s+/g,' ').trim();
+          return u2.toLowerCase() === e2.toLowerCase();
+        };
+
+        if (flexibleMatch(user, expNorm)) {
+          block.classList.add('correct');
+          block.innerHTML = '<strong>Question '+(idx+1)+' — Correct</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(input.value)+'</em></div>';
+          correctCount++;
+        } else {
+          block.classList.add('incorrect');
+          block.innerHTML = '<strong>Question '+(idx+1)+' — Incorrect</strong><div class="explain-answer">Your answer: <em>'+escapeHtml(input.value || '(no answer)')+'</em></div>';
+          const correctDiv = document.createElement('div');
+          correctDiv.className = 'explain-answer';
+          correctDiv.innerHTML = '<strong>Correct answer:</strong> <em>'+escapeHtml(expected)+'</em>';
+          const reason = document.createElement('div');
+          reason.className = 'explain-answer';
+          reason.innerHTML = '<em>Explanation:</em> '+escapeHtml(explanation);
+          block.appendChild(correctDiv);
+          block.appendChild(reason);
+        }
+        fb.appendChild(block);
+      });
+      const summary = document.createElement('div');
+      summary.className = 'small';
+      summary.style.marginTop = '10px';
+      summary.textContent = 'Score: '+correctCount+' / '+Object.keys(ANSWERS).length;
+      fb.prepend(summary);
+      fb.scrollIntoView({behavior:'smooth'});
+    }
+
+    function clearSaved(){
+      if (!confirm('Clear all saved answers?')) return;
+      Object.keys(ANSWERS).forEach(k => localStorage.removeItem('reported-'+k));
+      document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+      document.getElementById('feedback').innerHTML = '';
+      document.getElementById('status').textContent = 'Your answers are saved locally as you enter them.';
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    document.getElementById('check').addEventListener('click', checkAnswers);
+    document.getElementById('clear').addEventListener('click', clearSaved);
+  </script>
 </body>
 </html>
