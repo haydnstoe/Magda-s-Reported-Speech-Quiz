@@ -38,10 +38,10 @@
 
   <section class="explain">
     <strong>Explanation</strong>
-    <p>Reported speech (indirect speech) is used to tell someone what another person said without quoting them directly. Key changes when converting direct to reported speech: backshift of tense (present → past, past → past perfect), changes to modal verbs (can → could, will → would), changes to time and place expressions (now → then, today → that day, here → there), and pronoun adjustments for the new subject. The word "that" is optional in many reported constructions — both forms are accepted.</p>
+    <p>Reported speech (indirect speech) is used to tell someone what another person said without quoting them directly. Key changes when converting direct to reported speech: backshift of tense (present → past, past → past perfect), changes to modal verbs (can → could, will → would), changes to time and place expressions (now → then, today → that day, here → there), and pronoun adjustments for the new subject. The word "that" is optional in many reported constructions — you do not need to write "(that)" in your answers; either including or omitting the word "that" is accepted.</p>
     <div class="examples">
-      <div class="example"><strong>Direct:</strong> "I will finish the report tomorrow," she said. <strong>Reported:</strong> She said (that) she would finish the report the next day.</div>
-      <div class="example"><strong>Direct:</strong> "We have already sent the invoice," they told me. <strong>Reported:</strong> They told me (that) they had already sent the invoice.</div>
+      <div class="example"><strong>Direct:</strong> "I will finish the report tomorrow," she said. <strong>Reported:</strong> She said she would finish the report the next day.</div>
+      <div class="example"><strong>Direct:</strong> "We have already sent the invoice," they told me. <strong>Reported:</strong> They told me they had already sent the invoice.</div>
     </div>
   </section>
 
@@ -99,17 +99,17 @@
 
     <!-- 6 reported -> direct -->
     <div class="question" data-id="q11">
-      <div class="qmeta"><strong>11</strong> — Reported: He explained that he had completed the audit the previous month. Change to direct speech.</div>
+      <div class="qmeta"><strong>11</strong> — Reported: He explained he had completed the audit the previous month. Change to direct speech.</div>
       <input type="text" name="q11" placeholder="Write the direct quotation here" />
     </div>
 
     <div class="question" data-id="q12">
-      <div class="qmeta"><strong>12</strong> — Reported: She warned that the software might not be compatible with older systems. Change to direct speech.</div>
+      <div class="qmeta"><strong>12</strong> — Reported: She warned the software might not be compatible with older systems. Change to direct speech.</div>
       <input type="text" name="q12" placeholder="Write the direct quotation here" />
     </div>
 
     <div class="question" data-id="q13">
-      <div class="qmeta"><strong>13</strong> — Reported: They promised that they would deliver the samples by Friday. Change to direct speech.</div>
+      <div class="qmeta"><strong>13</strong> — Reported: They promised they would deliver the samples by Friday. Change to direct speech.</div>
       <input type="text" name="q13" placeholder="Write the direct quotation here" />
     </div>
 
@@ -119,12 +119,12 @@
     </div>
 
     <div class="question" data-id="q15">
-      <div class="qmeta"><strong>15</strong> — Reported: She admitted that she had forgotten to attach the document. Change to direct speech.</div>
+      <div class="qmeta"><strong>15</strong> — Reported: She admitted she had forgotten to attach the document. Change to direct speech.</div>
       <input type="text" name="q15" placeholder="Write the direct quotation here" />
     </div>
 
     <div class="question" data-id="q16">
-      <div class="qmeta"><strong>16</strong> — Reported: He suggested that they take a short break before continuing. Change to direct speech.</div>
+      <div class="qmeta"><strong>16</strong> — Reported: He suggested they take a short break before continuing. Change to direct speech.</div>
       <input type="text" name="q16" placeholder="Write the direct quotation here" />
     </div>
 
@@ -142,24 +142,24 @@
   </form>
 
   <script>
-    // Correct responses and brief explanations
+    // Answers without "(that)" — that is optional and not required in user input
     const ANSWERS = {
-      q1: {ans:"Mark said (that) he was meeting the architect at 3pm.", expl:"Present continuous → past continuous; 'I'm meeting' becomes 'he was meeting'. 'that' is optional."},
-      q2: {ans:"Julia told me (that) she couldn't attend the conference the following week.", expl:"Modal 'can't' → past 'couldn't'; 'next week' → 'the following week'."},
-      q3: {ans:"The scientist said (that) they had never seen results like that.", expl:"Present perfect → past perfect; 'we' becomes 'they' if reporting by a third person."},
-      q4: {ans:"She asked (that) I/you/he/she/they call her when I/you/he/she/they arrived.", expl:"Imperatives reported with 'asked' + object + infinitive or 'asked me to call'; time shifts: 'when you arrive' → 'when I/you arrived'."},
-      q5: {ans:"He said (that) he had bought those tickets the day before.", expl:"Past simple usually stays past simple in reported speech if reporting verb is past; 'yesterday' → 'the day before'."},
-      q6: {ans:"The director asked them if/whether they would join the committee.", expl:"Yes/no question: 'Will you' → 'if/whether they would' and future 'will' → 'would'."},
-      q7: {ans:"The cleaner reminded us to lock the door.", expl:"Imperative with 'reminded' + object + infinitive; 'Don't forget to lock' → 'reminded us to lock'."},
-      q8: {ans:"He warned (that) he might be late because of traffic.", expl:"Modal 'may/might' — use 'might' in reported speech to backshift 'may'."},
-      q9: {ans:"They said (that) they were going to submit the proposal that day.", expl:"Present continuous/planned future 'are going to' → 'were going to'; 'today' → 'that day'."},
-      q10: {ans:"Anna said (that) she had seen him in the library.", expl:"Present perfect → past perfect when reporting; 'I've seen' → 'she had seen'."},
-      q11: {ans:"\"I completed the audit last month,\" he said.", expl:"Past perfect in reported speech corresponds to past simple in direct speech when reporter uses past: 'had completed' → 'completed'; 'the previous month' → 'last month'."},
-      q12: {ans:"\"The software may not be compatible with older systems,\" she warned.", expl:"Modal 'might' in reported becomes 'may' or 'might' in direct depending on original; here 'may' is natural."},
+      q1: {ans:"Mark said he was meeting the architect at 3pm.", expl:"Present continuous → past continuous; 'I'm meeting' becomes 'he was meeting'."},
+      q2: {ans:"Julia told me she couldn't attend the conference the following week.", expl:"Modal 'can't' → past 'couldn't'; 'next week' → 'the following week'."},
+      q3: {ans:"The scientist said they had never seen results like that.", expl:"Present perfect → past perfect; person reference may change in reporting."},
+      q4: {ans:"She asked me to call her when I arrived.", expl:"Imperatives: 'Please call me' → 'asked me to call'; adjust pronouns and tense."},
+      q5: {ans:"He said he had bought those tickets the day before.", expl:"Simple past reported with past perfect/time shift: 'yesterday' → 'the day before'."},
+      q6: {ans:"The director asked them if they would join the committee.", expl:"Yes/no question: 'Will you' → 'if they would' and 'will' → 'would'."},
+      q7: {ans:"The cleaner reminded us to lock the door.", expl:"Imperative reported with 'reminded' + object + infinitive."},
+      q8: {ans:"He warned he might be late because of traffic.", expl:"Modal backshift: 'may' → 'might'."},
+      q9: {ans:"They said they were going to submit the proposal that day.", expl:"Planned future: 'are going to' → 'were going to'; 'today' → 'that day'."},
+      q10: {ans:"Anna said she had seen him in the library.", expl:"Present perfect → past perfect when reported."},
+      q11: {ans:"\"I completed the audit last month,\" he said.", expl:"Reported past perfect → direct past simple; 'the previous month' → 'last month'."},
+      q12: {ans:"\"The software may not be compatible with older systems,\" she warned.", expl:"Reported 'might' corresponds to direct 'may' or 'might' depending on original; 'may' is natural."},
       q13: {ans:"\"We will deliver the samples by Friday,\" they promised.", expl:"Reported 'would deliver' corresponds to direct 'will deliver'."},
-      q14: {ans:"\"Has anyone seen the missing file?\" the manager asked.", expl:"Yes/no question in reported form uses 'whether' — direct: question form with auxiliary 'Has anyone seen...?'."},
-      q15: {ans:"\"I forgot to attach the document,\" she admitted.", expl:"Past perfect 'had forgotten' in reported speech often corresponds to past simple in direct speech depending on timing."},
-      q16: {ans:"\"Let's take a short break before continuing,\" he suggested.", expl:"'Suggested that they take' → direct suggestion 'Let's take...' or 'Why don't we take...'; 'Let's...' is a common direct form."}
+      q14: {ans:"\"Has anyone seen the missing file?\" the manager asked.", expl:"Reported 'whether' corresponds to direct yes/no question with auxiliary 'Has'."},
+      q15: {ans:"\"I forgot to attach the document,\" she admitted.", expl:"Reported past perfect sometimes maps to past simple in direct speech depending on context."},
+      q16: {ans:"\"Let's take a short break before continuing,\" he suggested.", expl:"Reported suggestion often corresponds to direct 'Let's...' or similar forms."}
     };
 
     // Save and restore inputs
@@ -175,7 +175,6 @@
 
     function normalize(s){
       if (!s) return '';
-      // replace smart quotes with simple quotes, collapse whitespace
       return s.trim()
         .replace(/[\u2018\u2019\u201C\u201D]/g, '"')
         .replace(/[\u2013\u2014]/g, '-')
@@ -183,14 +182,13 @@
         .trim();
     }
 
-    function removeThatAndQuotes(str) {
-      // Remove all standalone occurrences of 'that' (case-insensitive), remove outer quotes and normalize whitespace
+    function removeOptionalThatAndQuotesAndPunct(str) {
       return str
-        .replace(/^\s*["']?\s*/,'')   // leading quote
-        .replace(/\s*["']?\s*$/,'')   // trailing quote
-        .replace(/\bthat\b/gi,'')     // remove 'that'
-        .replace(/["']/g,'')          // remove any remaining quotes
-        .replace(/[.,;:!?]/g,'')      // remove punctuation for lenient compare
+        .replace(/^\s*["']?\s*/,'')
+        .replace(/\s*["']?\s*$/,'')
+        .replace(/\bthat\b/gi,'')
+        .replace(/["']/g,'')
+        .replace(/[.,;:!?]/g,'')
         .replace(/\s+/g,' ')
         .trim();
     }
@@ -200,17 +198,16 @@
       const user = normalize(userRaw);
       const expected = normalize(expectedRaw);
 
-      // Exact case-insensitive match is acceptable
       if (user.toLowerCase() === expected.toLowerCase()) return true;
 
-      // Compare after removing all 'that' occurrences and stripping quotes and punctuation
-      const uClean = removeThatAndQuotes(user).toLowerCase();
-      const eClean = removeThatAndQuotes(expected).toLowerCase();
+      const uClean = removeOptionalThatAndQuotesAndPunct(user).toLowerCase();
+      const eClean = removeOptionalThatAndQuotesAndPunct(expected).toLowerCase();
       if (uClean === eClean) return true;
 
-      // Additional tolerant check: allow minor spacing differences and minor variations in reporting pronouns
-      const tolerant = (s) => s.replace(/\b(I|we|you|he|she|they)\b/gi,'').replace(/\s+/g,' ').trim();
-      if (tolerant(uClean) === tolerant(eClean)) return true;
+      // Tolerant check: allow omission of reporting pronoun (e.g. 'she said' vs no 'she said' in user input),
+      // so compare core predicate phrases where possible by removing leading reporting clause words.
+      const stripReporting = s => s.replace(/^[a-z]+\s+(said|told|asked|warned|explained|admitted|suggested|promised|reminded|asked whether|asked if)\s*/i,'').trim();
+      if (stripReporting(uClean) === stripReporting(eClean)) return true;
 
       return false;
     }
